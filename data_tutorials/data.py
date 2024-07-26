@@ -7,14 +7,20 @@
 from urllib.request import urlretrieve
 from pathlib import Path
 
-default_url = "https://raw.githubusercontent.com/imagdau/Tutorials/main/data/"
-
-def get_data(url: str=default_url, filename: str| list[str] = "", folder: str="data") -> None:
-    p = Path(folder)
-    p.mkdir(parents=True, exist_ok=True)
-    save_file = p/filename
-    path, headers = urlretrieve(url+filename, save_file)
+default_url = "https://raw.githubusercontent.com/ddmms/data-tutorials/main/data/"
+def download_file(url: str, filename:str, dest: Path) -> None:
+    save_file = dest/filename
+    path, headers = urlretrieve(url, dest)
     if path.exists():
         print(f"saved in {save_file}")
     else:
         print(f"{save_file} could not be downloaded, check url.")
+
+def get_data(url: str=default_url, filename: str| list[str] = "", folder: str="data") -> None:
+    p = Path(folder)
+    p.mkdir(parents=True, exist_ok=True)
+    if isinstance(filename,str):
+        download_file(url,filename,p)
+    elif isinstance(filename, list):
+        for f in filename:
+           download_file(url,f,p)
