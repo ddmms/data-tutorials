@@ -6,6 +6,8 @@
 
 from urllib.request import urlretrieve
 from pathlib import Path
+# this is only for python 3.9 once done use str| list[str]
+from typing import Union
 
 default_url = "https://raw.githubusercontent.com/ddmms/data-tutorials/main/data/"
 def download_file(url: str, filename:str, dest: Path) -> None:
@@ -17,7 +19,7 @@ def download_file(url: str, filename:str, dest: Path) -> None:
     else:
         print(f"{save_file} could not be downloaded, check url.")
 
-def get_data(url: str=default_url, filename: str| list[str] = "", folder: str="data") -> None:
+def get_data(url: str=default_url, filename: Union[str, list[str]] = "", folder: str="data") -> None:
     p = Path(folder)
     p.mkdir(parents=True, exist_ok=True)
     if isinstance(filename,str):

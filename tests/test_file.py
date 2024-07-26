@@ -11,7 +11,11 @@ from pathlib import Path
 def test_download_file():
    get_data(filename="LiFePO4_supercell.cif",folder="data-test")
    with open(Path("data-test")/"LiFePO4_supercell.cif", "rb") as fd:
-      h  = hashlib.file_digest(fd, "sha256")
+      try:
+        h  = hashlib.file_digest(fd, "sha256")
+      except AttributeError:
+        h  = hashlib.sha256()
+        h.update(fd.read())
    assert h.hexdigest() == "ea9a538dde5bb84b92e9478dbcc078bb560b28a4f5e4b0469d416bff36be272e"
 
 def test_download_files():
@@ -21,5 +25,9 @@ def test_download_files():
    get_data(filename=files,folder="data-test")
    for f in files:
       with open(Path("data-test")/f, "rb") as fd:
-         h  = hashlib.file_digest(fd, "sha256")
+         try:
+           h  = hashlib.file_digest(fd, "sha256")
+         except AttributeError:
+           h  = hashlib.sha256()
+           h.update(fd.read())
       assert h.hexdigest() == sha256[f]

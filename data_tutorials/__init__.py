@@ -5,7 +5,6 @@ typical usage
 >>> from data_tutorials.data import get_data
 >>> get_data(url="my_file_url", filename="mycif", folder="data")
 
-
 """
 
 from importlib.metadata import version
