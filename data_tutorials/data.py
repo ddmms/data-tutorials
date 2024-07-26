@@ -10,7 +10,8 @@ from pathlib import Path
 default_url = "https://raw.githubusercontent.com/ddmms/data-tutorials/main/data/"
 def download_file(url: str, filename:str, dest: Path) -> None:
     save_file = dest/filename
-    path, headers = urlretrieve(url, dest)
+    print(f"try to download {filename} from {url} and save it in {save_file}")
+    path, headers = urlretrieve(url+filename, save_file)
     if path.exists():
         print(f"saved in {save_file}")
     else:
