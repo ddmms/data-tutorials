@@ -8,6 +8,7 @@ name = "data-tutorials"
 dynamic = ["version"]
 dependencies = [
   "pytest",
+  "ruff", 
 ]
 requires-python = ">=3.9"
 authors = [
@@ -42,3 +43,16 @@ packages = ["data_tutorials"]
 pythonpath = [
   "."
 ]
+
+[tool.ruff]
+line-length = 100
+indent-width = 2
+target-version = "py38"
+line-ending = "auto"
+
+[tool.ruff.lint]
+
+[tool.ruff.format]
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
