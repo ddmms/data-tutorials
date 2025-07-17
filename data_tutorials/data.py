@@ -40,6 +40,7 @@ class TqdmUpTo(tqdm):
 
 def download_file(url: str, filename: str, dest: Path) -> None:
     save_file = dest / filename
+    url = url if url.endswith('/') else url + '/'
     print(f"try to download {filename} from {url} and save it in {save_file}")
     with TqdmUpTo(unit = 'B', unit_scale = True, unit_divisor = 1024, miniters = 1, desc = filename) as t:
         path, _ = urlretrieve(url + filename, save_file, reporthook = t.update_to)
